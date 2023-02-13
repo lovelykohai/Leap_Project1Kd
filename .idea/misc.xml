@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Leap_Project1Kd/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.4555" />
+        <entry key="..\:/Leap_Project1Kd/app/src/main/res/layout/activity_admin_room.xml" value="0.5541666666666667" />
+        <entry key="..\:/Leap_Project1Kd/app/src/main/res/layout/activity_backup_and_charge1.xml" value="0.31354166666666666" />
+        <entry key="..\:/Leap_Project1Kd/app/src/main/res/layout/activity_backup_and_charge2.xml" value="0.2994791666666667" />
+        <entry key="..\:/Leap_Project1Kd/app/src/main/res/layout/activity_gif_screen.xml" value="0.29202106115836374" />
+        <entry key="..\:/Leap_Project1Kd/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Leap_Project1Kd/app/src/main/res/layout/activity_select_cameras.xml" value="0.33" />
+        <entry key="..\:/Leap_Project1Kd/app/src/main/res/layout/activity_start_session.xml" value="0.33" />
+        <entry key="..\:/Leap_Project1Kd/app/src/main/res/layout/activity_user_home.xml" value="0.5" />
+        <entry key="..\:/Leap_Project1Kd/app/src/main/res/layout/content_backup_and_charge1.xml" value="0.5541666666666667" />
+        <entry key="..\:/Leap_Project1Kd/app/src/main/res/layout/fragment_first.xml" value="0.31354166666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

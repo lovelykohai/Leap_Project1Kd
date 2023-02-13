@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Select_Cameras">
+
+    <ImageView
+        android:id="@+id/Camera_1"
+        android:layout_width="174dp"
+        android:layout_height="143dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/select_camera_1" />
+
+    <ImageView
+        android:id="@+id/Camera_3"
+        android:layout_width="175dp"
+        android:layout_height="143dp"
+        android:layout_marginStart="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Camera_2"
+        app:srcCompat="@drawable/select_camera_3" />
+
+    <ImageView
+        android:id="@+id/Camera_2"
+        android:layout_width="175dp"
+        android:layout_height="145dp"
+        android:layout_marginStart="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Camera_1"
+        app:srcCompat="@drawable/select_camera_2" />
+
+    <ImageView
+        android:id="@+id/Camera_4"
+        android:layout_width="175dp"
+        android:layout_height="138dp"
+        android:layout_marginStart="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Camera_3"
+        app:srcCompat="@drawable/select_camera_4" />
+
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.26"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Camera_4"
+        app:srcCompat="@drawable/btn_back_gnrc" />
+
+    <ImageView
+        android:id="@+id/btn_select_location"
+        android:layout_width="180dp"
+        android:layout_height="119dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="206dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toTopOf="@+id/btn_back"
+        app:layout_constraintStart_toEndOf="@+id/Camera_3"
+        app:srcCompat="@drawable/select_location" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
