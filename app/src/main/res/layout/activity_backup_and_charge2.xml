@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="202dp"
-        android:layout_height="328dp"
+        android:layout_width="212dp"
+        android:layout_height="311dp"
         android:layout_marginTop="25dp"
         android:text="Conecte os cabos brancos nos sensores do corpo"
         android:textSize="34sp"
@@ -20,10 +20,10 @@
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="181dp"
-        android:layout_height="117dp"
+        android:layout_width="192dp"
+        android:layout_height="37dp"
         android:layout_marginTop="16dp"
-        android:text=" Backup e Carga "
+        android:text="Backup e Carga "
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.26"
