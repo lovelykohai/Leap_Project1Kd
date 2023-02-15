@@ -59,13 +59,6 @@ public class Gif_Screen extends AppCompatActivity {
         contd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick (View view){
-                ThreeTwoOne.setImageResource(R.drawable.threetwoone);
-                ThreeTwoOne.setBackgroundResource(R.drawable.threetwoone);
-                ThreeTwoOne.setAlpha((float) 1);
-                Handler handler3 = new Handler();
-                handler3.postDelayed(new Runnable() {
-                    public void run() {
-                        ThreeTwoOne.setAlpha((float) 0);
                         FileInputStream fis = null;
                         try {
                             if(!GifTracker.exists()){
@@ -147,9 +140,6 @@ public class Gif_Screen extends AppCompatActivity {
                             }
                         }, 10000);
                     }
-                }, 2500);
-
-            }
         });
     }
     public int getResourceId(String pVariableName, String pResourcename, String pPackageName)

@@ -66,12 +66,15 @@ public class Start_Session extends AppCompatActivity {
                 TheText.setText("Se as câmeras que pretende utilizar estiverem conectados, desconectá-los");
                 break;
             case 2:
-                TheText.setText("Assegurar que tanto as câmaras como os sensores corporais mostram luzes a piscar");
+                TheText.setText("Certifique-se de que ambos os sensores do corpo e ambas as câmeras estejam ligados");
                 break;
             case 3:
-                TheText.setText("Por favor, coloque as câmaras e os sensores nas suas posições à direita");
+                TheText.setText("Assegurar que tanto as câmaras como os sensores corporais mostram luzes a piscar");
                 break;
             case 4:
+                TheText.setText("Por favor, coloque as câmaras e os sensores nas suas posições à direita");
+                break;
+            case 5:
                 counter = 0;
                 Intent i2 = new Intent(getApplicationContext(),Gif_Screen.class);
                 startActivity(i2);
