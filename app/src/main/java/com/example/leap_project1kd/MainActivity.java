@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick (View view){
                 if(Password.getText().toString().equals("C234")){
-                    Intent i = new Intent(getApplicationContext(),AdminRoom.class);
+                    Intent i = new Intent(getApplicationContext(),Select_Cameras.class);
                     startActivity(i);
                 }
                 else{

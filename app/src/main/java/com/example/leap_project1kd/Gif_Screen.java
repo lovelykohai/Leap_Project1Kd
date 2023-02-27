@@ -1,7 +1,8 @@
 package com.example.leap_project1kd;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import java.time.LocalTime;
+import java.time.LocalDate;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -26,6 +27,9 @@ public class Gif_Screen extends AppCompatActivity {
     GifImageView myGif;
     ImageView contd;
     ImageView green;
+    int day;
+    int hour;
+    int dec;
     String FileName= "GifTracker.txt";
     String CurrentGif;
     View decorView;
@@ -33,6 +37,10 @@ public class Gif_Screen extends AppCompatActivity {
     int NextGif = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LocalTime time = LocalTime.now();
+        LocalDate date = LocalDate.now();
+        day = date.getDayOfMonth();
+        hour = time.getHour();
         File d = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
         File GifTracker = new File(d,"GifTracker.txt");
         super.onCreate(savedInstanceState);
@@ -41,6 +49,7 @@ public class Gif_Screen extends AppCompatActivity {
         myGif.setAlpha((float) 0);
         green = findViewById(R.id.tImageView);
         green.setAlpha((float) 0);
+        SetTime();
         ThreeTwoOne = findViewById(R.id.ThreeTwoOne);
         ThreeTwoOne.setAdjustViewBounds(true);
         ThreeTwoOne.setAlpha((float) 0);
@@ -59,47 +68,11 @@ public class Gif_Screen extends AppCompatActivity {
         contd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick (View view){
-                ThreeTwoOne.setImageResource(R.drawable.threetwoone);
-                ThreeTwoOne.setBackgroundResource(R.drawable.threetwoone);
-                ThreeTwoOne.setAlpha((float) 1);
-                Handler handler3 = new Handler();
-                handler3.postDelayed(new Runnable() {
-                    public void run() {
-                        ThreeTwoOne.setAlpha((float) 0);
-                        FileInputStream fis = null;
-                        try {
-                            if(!GifTracker.exists()){
-                                GifTracker.createNewFile();
-                            }
-                            fis = new FileInputStream(GifTracker);
-                            InputStreamReader isr = new InputStreamReader(fis);
-                            BufferedReader br = new BufferedReader(isr);
-                            StringBuilder sb = new StringBuilder();
-                            String text;
-                            while((text = br.readLine())!=null){
-                                sb.append(text).append("\n");
-                            }
-                            CurrentGif = sb.toString();
-                            Log.i("Pre everything CG ", CurrentGif);
-                            Log.i("Text ", sb.toString());
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } finally {
-                            if (fis != null) {
-                                try {
-                                    fis.close();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                        int i = getResourceId("code"+CurrentGif.trim(), "drawable", getPackageName());
-                        Log.i("Current Gif:",CurrentGif);
-                        Log.i("Name:" , "code"+CurrentGif+".gif");
+                        int i = getResourceId("code"+String.valueOf(dec), "drawable", getPackageName());
+                        Log.i("Current Gif:",String.valueOf(dec));
+                        Log.i("Name:" , "code"+String.valueOf(dec)+".gif");
                         Log.i("Resource Id:", String.valueOf(i));
-                        NextGif = Integer.parseInt(CurrentGif.trim());
+                        NextGif = Integer.parseInt(String.valueOf(dec).trim());
                         NextGif = NextGif+1;
                         if(NextGif<10){
                             CurrentGif = "00"+String.valueOf(NextGif);
@@ -110,25 +83,9 @@ public class Gif_Screen extends AppCompatActivity {
                         else{
                             CurrentGif = String.valueOf(NextGif);
                         }
-                        FileOutputStream fos = null;
-                        try {
-                            fos = new FileOutputStream(GifTracker);
-                            BufferedOutputStream Buff = new BufferedOutputStream(fos);
-                            byte[] bs = CurrentGif.getBytes();
-                            Buff.write(bs);
-                            Buff.flush();
-                            Buff.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }   finally {
-                            try {
-                                fos.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        Log.i("Current Gif:",CurrentGif);
-                        Log.i("Name:" , "code"+CurrentGif+".gif");
+
+                        Log.i("Current Gif:", String.valueOf(dec));
+                        Log.i("Name:" , "code"+String.valueOf(dec)+".gif");
                         Log.i("Resource Id:", String.valueOf(i));
                         myGif.setImageResource(i);
                         myGif.setBackgroundResource(i);
@@ -147,10 +104,20 @@ public class Gif_Screen extends AppCompatActivity {
                             }
                         }, 10000);
                     }
-                }, 2500);
-
-            }
         });
+    }
+    public void SetTime(){
+        int day3bits = day % 8;
+        String daybin = String.format("%3s", Integer.toBinaryString(day3bits)).replaceAll(" ", "0");
+        // Convert the hour of the day to binary - will be 5 bits
+        String hourbin = String.format("%5s", Integer.toBinaryString(hour)).replaceAll(" ", "0");
+
+        // Create 8 bit code by concatenating
+        String bin = daybin + hourbin;
+
+        // Convert back to decimal
+        dec = Integer.parseInt(bin, 2); // Use this value to choose GIF
+
     }
     public int getResourceId(String pVariableName, String pResourcename, String pPackageName)
     {

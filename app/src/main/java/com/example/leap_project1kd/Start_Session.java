@@ -72,6 +72,9 @@ public class Start_Session extends AppCompatActivity {
                 TheText.setText("Por favor, coloque as câmaras e os sensores nas suas posições à direita");
                 break;
             case 4:
+                TheText.setText("Ligar as câmaras e os sensores corporais");
+                break;
+            case 5:
                 counter = 0;
                 Intent i2 = new Intent(getApplicationContext(),Gif_Screen.class);
                 startActivity(i2);

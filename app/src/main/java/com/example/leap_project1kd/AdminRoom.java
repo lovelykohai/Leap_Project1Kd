@@ -26,12 +26,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class AdminRoom extends AppCompatActivity {
-    ImageView ResetBtn;
     ImageView CameraBtn;
     ImageView BackBtn;
     View decorView;
-    File GifTracker;
-    String FileName= "GifTracker.txt";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +44,6 @@ public class AdminRoom extends AppCompatActivity {
         });
         CameraBtn = (ImageView) findViewById(R.id.Admin_btn_Camera);
         BackBtn = findViewById(R.id.Admin_back);
-        ResetBtn = (ImageView) findViewById(R.id.Admin_btn_reset);
-        File d = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-        GifTracker = new File(d,"GifTracker.txt");
-        SetResetBtn();
         setCameraBtn();
         SetBtnBack();
     }
@@ -70,54 +63,6 @@ public class AdminRoom extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(),Select_Cameras.class);
                 startActivity(i);
             }
-        });
-    }
-    public void SetResetBtn(){
-        ResetBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View view){
-                Toast.makeText(getApplicationContext(),"Contador Reinicializar", Toast.LENGTH_LONG).show();
-                FileInputStream fis = null;
-                try {
-                    if(!GifTracker.exists()){
-                        Log.i("T","He file did not exist");
-                        GifTracker.createNewFile();
-                    }
-                     fis = new FileInputStream(GifTracker);
-                    InputStreamReader isr = new InputStreamReader(fis);
-                    BufferedReader br = new BufferedReader(isr);
-                    StringBuilder sb = new StringBuilder();
-                    String text;
-                    while((text = br.readLine())!=null){
-                        sb.append(text).append("\n");
-                    }
-                    Log.i("Text ", sb.toString());
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (fis != null) {
-                        try {
-                            fis.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                FileOutputStream fos = null;
-                try {
-                    fos = new FileOutputStream(GifTracker);
-                    BufferedOutputStream Buff = new BufferedOutputStream(fos);
-                    byte[] bs = "001".getBytes();
-                    Buff.write(bs);
-                    Buff.flush();
-                    Buff.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                }
-
         });
     }
     @Override
