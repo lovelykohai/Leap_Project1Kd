@@ -1,6 +1,9 @@
 package com.example.leap_project1kd;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.time.LocalTime;
 import java.time.LocalDate;
 import android.content.Intent;
@@ -37,6 +40,7 @@ public class Gif_Screen extends AppCompatActivity {
     int NextGif = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        CreateFile();
         LocalTime time = LocalTime.now();
         LocalDate date = LocalDate.now();
         day = date.getDayOfMonth();
@@ -68,24 +72,22 @@ public class Gif_Screen extends AppCompatActivity {
         contd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick (View view){
-                        int i = getResourceId("code"+String.valueOf(dec), "drawable", getPackageName());
+
                         Log.i("Current Gif:",String.valueOf(dec));
-                        Log.i("Name:" , "code"+String.valueOf(dec)+".gif");
-                        Log.i("Resource Id:", String.valueOf(i));
+                        Log.i("Name:" , "code"+String.valueOf(dec)+".gif");;
                         NextGif = Integer.parseInt(String.valueOf(dec).trim());
-                        NextGif = NextGif+1;
                         if(NextGif<10){
-                            CurrentGif = "00"+String.valueOf(NextGif);
+                            CurrentGif = "00"+NextGif;
                         }
                         else if (NextGif<100){
-                            CurrentGif = "0"+String.valueOf(NextGif);
+                            CurrentGif = "0"+NextGif;
                         }
                         else{
                             CurrentGif = String.valueOf(NextGif);
                         }
-
-                        Log.i("Current Gif:", String.valueOf(dec));
-                        Log.i("Name:" , "code"+String.valueOf(dec)+".gif");
+                        int i = getResourceId("code"+String.valueOf(CurrentGif), "drawable", getPackageName());
+                        Log.i("Current Gif:", String.valueOf(CurrentGif));
+                        Log.i("Name:" , "code"+String.valueOf(CurrentGif)+".gif");
                         Log.i("Resource Id:", String.valueOf(i));
                         myGif.setImageResource(i);
                         myGif.setBackgroundResource(i);
@@ -143,5 +145,38 @@ public class Gif_Screen extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN |View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 |View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 |View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+    }
+    private void CreateFile(){
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+            //create output directory if it doesn't exist
+            File dir = new File (Environment.getExternalStorageDirectory() + "/" + File.separator + "counter.txt");
+            if (!dir.exists())
+            {
+                dir.mkdirs();
+                Log.i("checking the value of mkdirs", String.valueOf(dir.mkdirs()));
+            }
+            in = new FileInputStream(inputPath + inputFile);
+            out = new FileOutputStream(outputPath + inputFile);
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+            in.close();
+            in = null;
+            // write the output file
+            out.flush();
+            out.close();
+            out = null;
+        }
+
+        catch (FileNotFoundException fnfe1) {
+            Log.e("tag", fnfe1.getMessage());
+        }
+        catch (Exception e) {
+            Log.e("tag", e.getMessage());
+        }
     }
 }
