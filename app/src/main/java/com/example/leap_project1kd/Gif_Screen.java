@@ -32,14 +32,18 @@ public class Gif_Screen extends AppCompatActivity {
     ImageView green;
     int day;
     int hour;
+    int counter;
     int dec;
     String FileName= "GifTracker.txt";
     String CurrentGif;
     View decorView;
     GifImageView ThreeTwoOne;
     int NextGif = 1;
+    FileInputStream fis = null;
+    File d;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        d = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
         CreateFile();
         LocalTime time = LocalTime.now();
         LocalDate date = LocalDate.now();
@@ -53,7 +57,6 @@ public class Gif_Screen extends AppCompatActivity {
         myGif.setAlpha((float) 0);
         green = findViewById(R.id.tImageView);
         green.setAlpha((float) 0);
-        SetTime();
         ThreeTwoOne = findViewById(R.id.ThreeTwoOne);
         ThreeTwoOne.setAdjustViewBounds(true);
         ThreeTwoOne.setAlpha((float) 0);
@@ -72,7 +75,14 @@ public class Gif_Screen extends AppCompatActivity {
         contd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick (View view){
-
+                        String dec1 =  SetTime();
+                        int Count = ReadFile();
+                        Log.i("Counter ", String.valueOf(Count));
+                        String counterbin = String.format("%2s", Integer.toBinaryString(Count)).replaceAll(" ", "0");
+                        String fullbin = dec1+counterbin;
+                        int dec = Integer.parseInt(fullbin, 2);
+                        IncrementText(Count);
+                        Log.i("Dec: ", String.valueOf(dec));
                         Log.i("Current Gif:",String.valueOf(dec));
                         Log.i("Name:" , "code"+String.valueOf(dec)+".gif");;
                         NextGif = Integer.parseInt(String.valueOf(dec).trim());
@@ -108,18 +118,21 @@ public class Gif_Screen extends AppCompatActivity {
                     }
         });
     }
-    public void SetTime(){
+    public String SetTime(){
+        int dec1;
         int day3bits = day % 8;
         String daybin = String.format("%3s", Integer.toBinaryString(day3bits)).replaceAll(" ", "0");
+        Log.i("Daybin: ", daybin);
         // Convert the hour of the day to binary - will be 5 bits
         String hourbin = String.format("%5s", Integer.toBinaryString(hour)).replaceAll(" ", "0");
-
+        Log.i("hourbin: ", hourbin);
         // Create 8 bit code by concatenating
         String bin = daybin + hourbin;
-
+        Log.i("bin: ", bin);
         // Convert back to decimal
-        dec = Integer.parseInt(bin, 2); // Use this value to choose GIF
-
+        //dec1 = Integer.parseInt(bin, 2); // Use this value to choose GIF
+        //Log.i("Dec1: ", String.valueOf(dec1));
+        return bin;
     }
     public int getResourceId(String pVariableName, String pResourcename, String pPackageName)
     {
@@ -147,36 +160,124 @@ public class Gif_Screen extends AppCompatActivity {
                 |View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
     }
     private void CreateFile(){
-        InputStream in = null;
-        OutputStream out = null;
-        try {
-            //create output directory if it doesn't exist
-            File dir = new File (Environment.getExternalStorageDirectory() + "/" + File.separator + "counter.txt");
-            if (!dir.exists())
-            {
-                dir.mkdirs();
-                Log.i("checking the value of mkdirs", String.valueOf(dir.mkdirs()));
-            }
-            in = new FileInputStream(inputPath + inputFile);
-            out = new FileOutputStream(outputPath + inputFile);
-            byte[] buffer = new byte[1024];
-            int read;
-            while ((read = in.read(buffer)) != -1) {
-                out.write(buffer, 0, read);
-            }
-            in.close();
-            in = null;
-            // write the output file
-            out.flush();
-            out.close();
-            out = null;
-        }
 
-        catch (FileNotFoundException fnfe1) {
-            Log.e("tag", fnfe1.getMessage());
+        File GifTracker = new File(d,"Counter.txt");
+        try {
+            if(!GifTracker.exists()){
+                Log.i("T","He file did not exist");
+                GifTracker.createNewFile();
+                WriteFile();
+            }
+            else{
+                Log.i("T","he file already exists");
+            }
+            fis = new FileInputStream(GifTracker);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String text;
+            while((text = br.readLine())!=null){
+                sb.append(text);
+            }
+            Log.i("Text ", sb.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        catch (Exception e) {
-            Log.e("tag", e.getMessage());
+    }
+    private void WriteFile(){
+        File GifTracker = new File(d,"Counter.txt");
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(GifTracker);
+            BufferedOutputStream Buff = new BufferedOutputStream(fos);
+            byte[] bs = "000".getBytes();
+            Buff.write(bs);
+            Buff.flush();
+            Buff.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private int ReadFile(){
+        int Counter;
+        File GifTracker = new File(d,"Counter.txt");
+        FileInputStream fis = null;
+        try {
+            if(!GifTracker.exists()){
+                GifTracker.createNewFile();
+            }
+            fis = new FileInputStream(GifTracker);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String text;
+            while((text = br.readLine())!=null){
+                sb.append(text);
+            }
+            Log.i("Text: ", sb.toString());
+            Counter = Integer.parseInt(sb.toString());
+            return Counter;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return 0;
+    }
+    private void IncrementText(int currentVal){
+        FileInputStream fis = null;
+        File GifTracker = new File(d,"Counter.txt");
+        int nextVal = 0;
+        switch (currentVal){
+            case 0:
+                nextVal = 1;
+                break;
+            case 1:
+                nextVal = 2;
+                break;
+            case 2:
+                nextVal = 3;
+                break;
+            case 3:
+                nextVal = 0;
+                break;
+            default:
+                break;
+        }
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(GifTracker);
+            BufferedOutputStream Buff = new BufferedOutputStream(fos);
+            byte[] bs = String.valueOf(nextVal).getBytes();
+            Buff.write(bs);
+            Buff.flush();
+            Buff.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }   finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
