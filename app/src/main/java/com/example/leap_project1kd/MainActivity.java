@@ -5,12 +5,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
     ImageView userButton;
@@ -43,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         Credit = findViewById(R.id.textView3);
         Credit.setAlpha((float)0.05);
         setAdminBtn();
+        CreateFiles();
     }
     public void setUserBtn(){
         userButton.setOnClickListener(new View.OnClickListener(){
@@ -66,6 +77,66 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    public void CreateFiles(){
+        File d = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        FileInputStream fis = null;
+        for (int i = 0; i<5;i++){
+            File FileTrack = new File(d,"File"+i+".txt");
+            try {
+                if(!FileTrack.exists()){
+                    Log.i("T","He file did not exist");
+                    FileTrack.createNewFile();
+                    WriteFile(FileTrack);
+                }
+                else{
+                    Log.i("T","he file already exists");
+                    fis = new FileInputStream(FileTrack);
+                    InputStreamReader isr = new InputStreamReader(fis);
+                    BufferedReader br = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    String text;
+                    while((text = br.readLine())!=null){
+                        sb.append(text);
+                    }
+                    setUris(Uri.parse(sb.toString()),i+1);
+                }
+                fis = new FileInputStream(FileTrack);
+                InputStreamReader isr = new InputStreamReader(fis);
+                BufferedReader br = new BufferedReader(isr);
+                StringBuilder sb = new StringBuilder();
+                String text;
+                while((text = br.readLine())!=null){
+                    sb.append(text);
+                }
+                Log.i("Text ", sb.toString());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        }
+    private void WriteFile(File GifTracker){
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(GifTracker);
+            BufferedOutputStream Buff = new BufferedOutputStream(fos);
+            byte[] bs = "content://com.android.externalstorage.documents/tree/primary%3ADCIM".getBytes();
+            Buff.write(bs);
+            Buff.flush();
+            Buff.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public static Uri getUris(int reqCode){
         switch(reqCode){
