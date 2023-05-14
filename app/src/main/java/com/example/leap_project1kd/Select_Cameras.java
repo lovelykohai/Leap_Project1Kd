@@ -28,7 +28,6 @@ public class Select_Cameras extends AppCompatActivity {
         setContentView(R.layout.activity_select_cameras);
         camera1 = findViewById(R.id.Camera_1);
         camera2 = findViewById(R.id.Camera_2);
-        btn = findViewById(R.id.button);
         decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener(){
             @Override
@@ -53,26 +52,7 @@ public class Select_Cameras extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
 
-            public void onClick(View v) {
-                if(f.exists()){
-                    try {
-                        BufferedReader br = new BufferedReader(new FileReader(f));
-                        String line;
-                        while ((line = br.readLine()) != null) {
-                            Log.i("Line"," "+line);
-                        }
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Log.i("", (""+String.valueOf(MainActivity.getUris(1))));
-            }
-        });
     }
     public void setCameras(){
         camera1.setOnClickListener(imgClk);
