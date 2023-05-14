@@ -60,19 +60,19 @@ public class Start_Session extends AppCompatActivity {
                 startActivity(i);
                 break;
             case 0:
-                TheText.setText("Se os sensores corporais estiverem conectados, desconectá-los");
+                TheText.setText("If the body sensors are plugged in, unplug them");
                 break;
             case 1:
-                TheText.setText("Se as câmeras que pretende utilizar estiverem conectados, desconectá-los");
+                TheText.setText("If the cameras you would like to use are plugged in, unplug them");
                 break;
             case 2:
-                TheText.setText("Assegurar que tanto as câmaras como os sensores corporais mostram luzes a piscar");
+                TheText.setText("Ensure both cameras and body sensors are switched on");
                 break;
             case 3:
-                TheText.setText("Por favor, coloque as câmaras e os sensores nas suas posições à direita");
+                TheText.setText("Ensure both cameras and body sensors have blinking lights");
                 break;
             case 4:
-                TheText.setText("Ligar as câmaras e os sensores corporais");
+                TheText.setText("Please place cameras and sensors in their positions to the right");
                 break;
             case 5:
                 counter = 0;
