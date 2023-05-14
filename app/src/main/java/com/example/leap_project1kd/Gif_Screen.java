@@ -114,7 +114,7 @@ public class Gif_Screen extends AppCompatActivity {
                                     }
                                 }, 3000);
                             }
-                        }, 11000);
+                        }, 10000);
                     }
         });
     }

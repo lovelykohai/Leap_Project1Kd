@@ -7,6 +7,7 @@ import androidx.documentfile.provider.DocumentFile;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ import com.anggrayudi.storage.file.DocumentFileUtils;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class backup_and_charge_2 extends AppCompatActivity {
     ImageView Confirm;
     View decorView;
     int URITracker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +54,7 @@ public class backup_and_charge_2 extends AppCompatActivity {
             public void onClick (View view){
                 VideoThread thread = new VideoThread();
                 thread.start();
-                UserHome.TheTimeWarning = "Please leave the cameras plugged in for 60 minutes";
+                UserHome.TheTimeWarning = "Por favor, deixe as câmaras carregando por pelo menos 60 minutos";
                 Intent i = new Intent(getApplicationContext(),UserHome.class);
                 startActivity(i);
             }
