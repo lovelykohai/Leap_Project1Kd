@@ -37,7 +37,7 @@
         android:layout_marginTop="62dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15"
-        app:srcCompat="@drawable/mario_kart_ds" />
+        app:srcCompat="@drawable/camera_instructions" />
 
     <ImageView
         android:id="@+id/contd"

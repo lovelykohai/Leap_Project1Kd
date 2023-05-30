@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class UserHome extends AppCompatActivity {
+public class UserHome extends AppCompatActivity { //Just a screen for users to select if they're backing up or doing a sync.
     ImageView backup;
     View decorView;
     ImageView start;
@@ -40,7 +40,7 @@ public class UserHome extends AppCompatActivity {
                     TheTimeWarning = "";
                     TimeWarning.setText(TheTimeWarning);
                 }
-            }, 3600000);
+            }, 3600000); //Displays for an hour
         }
         setupStart();
         setupBackup();

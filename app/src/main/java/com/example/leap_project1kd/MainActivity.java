@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
         AdminBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick (View view){
-                if(Password.getText().toString().equals("C234")){
+                if(Password.getText().toString().equals("C234")){ //Password is hard coded, the intention is just so the users can't access it
+                    //All of the keys are on the left side of the keyboard because the right side is covered up by plastic
                     Intent i = new Intent(getApplicationContext(),Select_Cameras.class);
                     startActivity(i);
                 }
@@ -78,10 +79,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void CreateFiles(){
+    public void CreateFiles(){ //Set up files on app start up that will be needed for file transfer, this sometimes doesn't work for some reason but we have failsafes later
         File d = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
         FileInputStream fis = null;
-        for (int i = 0; i<5;i++){
+        for (int i = 0; i<5;i++){ //Creates a txt file for each URI chosen in Select_Cameras, this is to store their location permanantly in memory
+            //They are also stored in scratch memory for direct reference, but this is destroyed on reset. The hard file is there so the cameras can be accessed whenever the app is used
+            //The URI should be unique from tablet to tablet so this avoids data contamination
             File FileTrack = new File(d,"File"+i+".txt");
             try {
                 if(!FileTrack.exists()){
@@ -154,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 return null;
         }
     }
-    public static void setUris(Uri uri, int Code){
+    public static void setUris(Uri uri, int Code){//Stores the URI of each camera for later grabbing
         switch(Code){
             case 1:
                 camera1URI = uri;
@@ -179,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     @Override
-    public void onWindowFocusChanged(boolean hasFocus){
+    public void onWindowFocusChanged(boolean hasFocus){//Every class has this 'On window focus' and 'Hide sys bars' their purpose is to hide the home bar, preventing the user from easily exiting the app
         super.onWindowFocusChanged(hasFocus);
         if(hasFocus){
             decorView.setSystemUiVisibility(hideSystemBars());

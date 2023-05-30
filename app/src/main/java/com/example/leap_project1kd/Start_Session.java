@@ -8,14 +8,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class Start_Session extends AppCompatActivity {
+public class Start_Session extends AppCompatActivity { //Simple activity to display instructions and move to GIF screen
     ImageView Btn_confirm;
     TextView TheText;
     ImageView Btn_Back;
     View decorView;
     int counter = 0;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { //Creates the UI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_session);
         Btn_confirm = findViewById(R.id.Btn_confirm);
@@ -52,7 +52,7 @@ public class Start_Session extends AppCompatActivity {
             decorView.setSystemUiVisibility(hideSystemBars());
         }
     }
-    public void TextSetter(){
+    public void TextSetter(){ //Cycles through instructions
         switch (counter){
             case -1:
                 counter = 0;

@@ -68,7 +68,7 @@ public class Select_Cameras extends AppCompatActivity {
         });
 
     }
-    public void setCameras(){
+    public void setCameras(){ //Make each icon clickable, the icons are pictures, not buttons
         camera1.setOnClickListener(imgClk);
         camera2.setOnClickListener(imgClk);
         camera3.setOnClickListener(imgClk);
@@ -76,7 +76,7 @@ public class Select_Cameras extends AppCompatActivity {
         SaveLocation.setOnClickListener(imgClk);
     }
 
-    public View.OnClickListener imgClk = new View.OnClickListener() {
+    public View.OnClickListener imgClk = new View.OnClickListener() { //Set each URI using ACTION_OPEN_DOCUMENT_TREE
         @Override
         public void onClick(View v) {
             switch(v.getId()){
@@ -98,11 +98,11 @@ public class Select_Cameras extends AppCompatActivity {
             }
             Intent openDocumentIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
             openDocumentIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_WRITE_URI_PERMISSION|Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-            startActivityForResult(openDocumentIntent, RQS_OPEN_DOCUMENT_TREE);
+            startActivityForResult(openDocumentIntent, RQS_OPEN_DOCUMENT_TREE); //StartActivityForResult is apparently deprecated but this still works
         }};
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {//When the app refresshes itself, set the URIs so they're not destroyed
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == RQS_OPEN_DOCUMENT_TREE) {
             Uri uriTree = data.getData();
@@ -131,7 +131,7 @@ public class Select_Cameras extends AppCompatActivity {
             }
         }
     }
-    public void WriteToFile(int i, Uri URIT){
+    public void WriteToFile(int i, Uri URIT){ //Writes the URIs for later access
         File d = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
         File f = new File(d,"File"+i+".txt");
         FileOutputStream fos = null;
@@ -148,7 +148,7 @@ public class Select_Cameras extends AppCompatActivity {
     }
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus){
+    public void onWindowFocusChanged(boolean hasFocus){ //Every class has this 'On window focus' and 'Hide sys bars' their purpose is to hide the home bar, preventing the user from easily exiting the app
         super.onWindowFocusChanged(hasFocus);
         if(hasFocus){
             decorView.setSystemUiVisibility(hideSystemBars());
