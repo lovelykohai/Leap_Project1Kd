@@ -32,8 +32,7 @@ public class Gif_Screen extends AppCompatActivity {
     ImageView green;
     int day;
     int hour;
-    int counter;
-    int dec;
+
     String FileName= "GifTracker.txt";
     String CurrentGif;
     View decorView;
@@ -47,14 +46,14 @@ public class Gif_Screen extends AppCompatActivity {
         CreateFile();
         LocalTime time = LocalTime.now();
         LocalDate date = LocalDate.now();
-        day = date.getDayOfMonth();
+        day = date.getDayOfMonth(); //Set date and time to create the binary response
         hour = time.getHour();
         File d = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
         File GifTracker = new File(d,"GifTracker.txt");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gif_screen);
         myGif = (GifImageView) findViewById(R.id.MyGif);
-        myGif.setAlpha((float) 0);
+        myGif.setAlpha((float) 0);//Create a blank gif file, make it invisible
         green = findViewById(R.id.tImageView);
         green.setAlpha((float) 0);
         ThreeTwoOne = findViewById(R.id.ThreeTwoOne);
@@ -75,33 +74,33 @@ public class Gif_Screen extends AppCompatActivity {
         contd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick (View view){
-                        String dec1 =  SetTime();
-                        int Count = ReadFile();
-                        Log.i("Counter ", String.valueOf(Count));
-                        String counterbin = String.format("%2s", Integer.toBinaryString(Count)).replaceAll(" ", "0");
-                        String fullbin = dec1+counterbin;
-                        int dec = Integer.parseInt(fullbin, 2);
-                        IncrementText(Count);
-                        Log.i("Dec: ", String.valueOf(dec));
-                        Log.i("Current Gif:",String.valueOf(dec));
-                        Log.i("Name:" , "code"+String.valueOf(dec)+".gif");;
-                        NextGif = Integer.parseInt(String.valueOf(dec).trim());
-                        if(NextGif<10){
-                            CurrentGif = "00"+NextGif;
-                        }
-                        else if (NextGif<100){
-                            CurrentGif = "0"+NextGif;
-                        }
-                        else{
-                            CurrentGif = String.valueOf(NextGif);
-                        }
-                        int i = getResourceId("code"+String.valueOf(CurrentGif), "drawable", getPackageName());
-                        Log.i("Current Gif:", String.valueOf(CurrentGif));
-                        Log.i("Name:" , "code"+String.valueOf(CurrentGif)+".gif");
-                        Log.i("Resource Id:", String.valueOf(i));
-                        myGif.setImageResource(i);
-                        myGif.setBackgroundResource(i);
-                        myGif.setAlpha((float)1);
+                String dec1 =  SetTime();
+                int Count = ReadFile(); //Set the counter
+                Log.i("Counter ", String.valueOf(Count));
+                String counterbin = String.format("%2s", Integer.toBinaryString(Count)).replaceAll(" ", "0");
+                String fullbin = dec1+counterbin; //Set the binary number representing date, time and counter
+                int dec = Integer.parseInt(fullbin, 2); //Change binary to integer
+                IncrementText(Count);
+                Log.i("Dec: ", String.valueOf(dec));//Set the Decimal as whatever the number is, change it to string
+                Log.i("Current Gif:",String.valueOf(dec));
+                Log.i("Name:" , "code"+String.valueOf(dec)+".gif");;
+                NextGif = Integer.parseInt(String.valueOf(dec).trim());//Set the number to string for parsing purposes
+                if(NextGif<10){
+                    CurrentGif = "00"+NextGif;//Check if the number is 1,2 or 3 digit
+                }
+                else if (NextGif<100){
+                    CurrentGif = "0"+NextGif; //All GIFs are formatted in the form 000, so GIF 2 is 002 with 1000-1024 being special cases that doesn't effect the overall calculations.
+                }
+                else{
+                    CurrentGif = String.valueOf(NextGif);
+                }
+                int i = getResourceId("code"+ CurrentGif, "drawable", getPackageName()); //Search the gif library for the gif corresponding to the code
+                Log.i("Current Gif:", String.valueOf(CurrentGif));
+                Log.i("Name:" , "code"+ CurrentGif +".gif");
+                Log.i("Resource Id:", String.valueOf(i));
+                myGif.setImageResource(i); //Display the gif
+                myGif.setBackgroundResource(i);
+                myGif.setAlpha((float)1);
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             public void run() {
@@ -159,8 +158,8 @@ public class Gif_Screen extends AppCompatActivity {
                 |View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 |View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
     }
-    private void CreateFile(){
-
+    private void CreateFile(){ //The GIFs rely on an internal counter, the intenal counter SHOULD exist no matter what because we create it in main, but for some reason during testing it sometimes didn't exist
+        //So we add ths file create code here, it only creates the file if it doesn't exist so it doesn't eat memory, it just looks quite messy in code
         File GifTracker = new File(d,"Counter.txt");
         try {
             if(!GifTracker.exists()){
@@ -194,6 +193,7 @@ public class Gif_Screen extends AppCompatActivity {
             }
         }
     }
+    //WriteFile() and ReadFile() check what number counter is on and increments it by one, this is important for determening which gif.
     private void WriteFile(){
         File GifTracker = new File(d,"Counter.txt");
         FileOutputStream fos = null;
@@ -242,6 +242,7 @@ public class Gif_Screen extends AppCompatActivity {
         }
         return 0;
     }
+    //IncrementText() also technically writes to file, I could have reffered to writefile here but I found that sometimes caused issue because that opened an already open file.
     private void IncrementText(int currentVal){
         FileInputStream fis = null;
         File GifTracker = new File(d,"Counter.txt");

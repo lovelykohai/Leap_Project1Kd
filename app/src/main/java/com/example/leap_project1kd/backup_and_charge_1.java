@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class backup_and_charge_1 extends AppCompatActivity {
-    ImageView CameraPlugged;
-    View decorView;
+public class backup_and_charge_1 extends AppCompatActivity { //B&C 1 acts as a 'buffer room' with the purpose of just displaying text, it exists so the text scroller in B&C2 can always be correct
+    ImageView CameraPlugged; //While B&C1 can be deprecated, it allows for a potential bug relating to constantly shifting between text boxes in B&C2, so it was decided to keep B&C1.
+   View decorView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +37,8 @@ public class backup_and_charge_1 extends AppCompatActivity {
 
     }
     @Override
-    public void onWindowFocusChanged(boolean hasFocus){
+    public void onWindowFocusChanged(boolean hasFocus){ //Every class has this 'On window focus' and 'Hide sys bars' their purpose is to hide the home bar, preventing the user from easily exiting the app
+
         super.onWindowFocusChanged(hasFocus);
         if(hasFocus){
             decorView.setSystemUiVisibility(hideSystemBars());

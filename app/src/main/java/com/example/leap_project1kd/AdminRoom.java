@@ -25,12 +25,12 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
-public class AdminRoom extends AppCompatActivity {
+public class AdminRoom extends AppCompatActivity { //Admin room has mostly been deprecated, home screen now moves to select cameras, however some messy legacy code points to the admin room for UI scalings
     ImageView CameraBtn;
     ImageView BackBtn;
     View decorView;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { //Set up the UI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_room);
         decorView = getWindow().getDecorView();
@@ -66,7 +66,7 @@ public class AdminRoom extends AppCompatActivity {
         });
     }
     @Override
-    public void onWindowFocusChanged(boolean hasFocus){
+    public void onWindowFocusChanged(boolean hasFocus){//Every class has this 'On window focus' and 'Hide sys bars' their purpose is to hide the home bar, preventing the user from easily exiting the app
         super.onWindowFocusChanged(hasFocus);
         if(hasFocus){
             decorView.setSystemUiVisibility(hideSystemBars());
