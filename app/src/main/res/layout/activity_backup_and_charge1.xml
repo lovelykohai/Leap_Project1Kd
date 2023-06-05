@@ -23,7 +23,7 @@
         android:layout_width="223dp"
         android:layout_height="309dp"
         android:layout_marginTop="20dp"
-        android:text="Conecte os cabos vermelhos em duas das câmeras "
+        android:text="Plug the cables into the body sensors "
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.26"

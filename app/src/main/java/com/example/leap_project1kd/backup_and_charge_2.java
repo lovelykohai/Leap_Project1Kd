@@ -55,7 +55,7 @@ public class backup_and_charge_2 extends AppCompatActivity {//B&C2 has two purpo
                 VideoThread thread = new VideoThread();
                 thread.start();//A thread is required to start to transfer files, this is why the A8 was chosen, a single thread runs the UI, a second thread runs the application
                 //Then a third thread is required to run the API, file mobility in android is layer protected, meaning it has to be done this way, a background core is used for variable control, 4-cores is the minimum to run this app.
-                UserHome.TheTimeWarning = "Por favor, deixe as câmaras carregando por pelo menos 60 minutos";
+                UserHome.TheTimeWarning = "Please leave the cameras charging for at least 60 minutes.";
                 //The average backup takes ~90 seconds, however in extremely rare cases, this can go up to 20 minutes, for safety purposes and data preservation (as well as file management)
                 //We ask the users to not use the same camera more than once per hour, this also allows for an hours charge which is roughly what the camera needs.
                 Intent i = new Intent(getApplicationContext(),UserHome.class);
